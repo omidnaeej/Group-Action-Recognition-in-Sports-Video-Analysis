@@ -1,0 +1,954 @@
+\documentclass{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multicol}
+
+\title[Group Activity Recognition]{Deep Learning-based Group Activity Recognition:\\Survey Summary}
+\author{Prepared by Omid Naeej Nejad}
+\date{November 2025}
+
+%------------------------------------------------------------
+% Custom Outline Header (Navigation Bar)
+%------------------------------------------------------------
+% To make vertical arrow
+\newcommand\vertarrowbox[3][6ex]{%
+  \begin{array}[t]{@{}c@{}} #2 \\
+  \left\uparrow\vcenter{\hrule height #1}\right.\kern-\nulldelimiterspace\\
+  \makebox[0pt]{\scriptsize#3}
+  \end{array}%
+}
+
+
+\begin{document}
+
+%------------------------------------------
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%------------------------------------------
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+%=========================================================
+\section{Introduction}
+%=========================================================
+
+\begin{frame}{What is Group Activity Recognition (GAR)?}
+\begin{itemize}
+    \item Task: Identify the activity performed by a group of people in a video.
+    \item More complex than single-person action recognition.
+    \item Requires understanding:
+    \begin{itemize}
+        \item Individual actions
+        \item Inter-person interactions
+        \item Temporal evolution
+        \item Group-level dynamics
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why is GAR important?}
+\begin{itemize}
+    \item Autonomous driving (predict pedestrian behaviour)
+    \item Sports analytics (volleyball, basketball, hockey)
+    \item Surveillance (crowd behaviour, anomaly detection)
+    \item Smart homes \& healthcare
+\end{itemize}
+\end{frame}
+
+%=========================================================
+\section{Definition \& Challenges}
+%=========================================================
+
+\begin{frame}{Definition}
+\begin{itemize}
+    \item Group activity = coordinated behavior of 2+ individuals.
+    \item Requires human detection + temporal modeling + relation reasoning.
+    \item Output:
+    \begin{itemize}
+        \item Individual action labels
+        \item Group activity label
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Major Challenges}
+\begin{itemize}
+    \item Complex spatial–temporal relationships.
+    \item Multiple subgroups; key actors matter.
+    \item Real-time joint detection–tracking–recognition.
+    \item Visual privacy \& weak generalization.
+    \item Non-standardized, imbalanced datasets.
+\end{itemize}
+\end{frame}
+
+%=========================================================
+\section{Taxonomy of Methods}
+%=========================================================
+
+\begin{frame}{Overview of Survey Taxonomy}
+Four main taxonomies:
+\begin{enumerate}
+    \item Supervision Types
+    \item Network Types
+    \item Modeling Mechanisms
+    \item Input Types
+\end{enumerate}
+\end{frame}
+
+%=========================================================
+\subsection{Supervision Types}
+%=========================================================
+
+\begin{frame}{Supervision Types}
+\begin{itemize}
+    \item Fully-supervised
+    \item Weakly-supervised
+    \item Self-supervised
+    \item Semi-supervised \& Reinforcement Learning
+\end{itemize}
+\end{frame}
+
+
+\subsubsection{Fully-supervised}
+
+
+\begin{frame}{Fully-supervised Methods}
+Characteristics:
+\begin{itemize}
+    \item Require bounding boxes + individual actions + group labels.
+    \item Highest accuracy.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item HDTM (CNN+LSTM)
+    \item ARG (GCN)
+    \item GroupFormer (Transformer)
+    \item MLST-Former (Transformer)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{HDTM}
+HDTM (Hierarchical Deep Temporal Model) uses a two-level temporal architecture. First, CNN features of each person are processed by individual-level LSTMs to capture their temporal actions. Then a group-level LSTM aggregates all individual sequences to infer the global activity. This hierarchical design captures both person-level evolution and group-level dynamics, forming a structured interpretation pipeline.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.45\linewidth]{pic/screenshot001}
+	\label{fig:screenshot001}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{ARG (Actor Relation Graph)}
+ARG builds a graph where nodes represent actors and edges represent pairwise relations derived from visual features. A GCN then propagates information across this graph to learn interaction-aware representations. By explicitly modeling relationships between individuals, ARG improves recognition of complex group activities and long-range dependencies.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.85\linewidth]{pic/screenshot002}
+	\label{fig:screenshot002}
+\end{figure}
+\end{frame}
+
+\begin{frame}{GroupFormer}
+GroupFormer treats each person as a token in a transformer. Self-attention layers let the network learn long-range interactions, identify important actors, and model both spatial and temporal structure jointly. Its transformer design provides stronger global reasoning than traditional LSTMs or GCNs.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.75\linewidth]{pic/screenshot003}
+% 	\caption{}
+\end{figure}
+\end{frame}
+
+\begin{frame}{MLST-Former}
+MLST-Former (Multi-Level Spatial-Temporal Transformer) extracts actor features at multiple hierarchical scales. Local subgroups, global formations, and temporal sequences are jointly processed through stacked spatial-temporal attention blocks. This multi-level transformer captures fine-grained relations and global group structure more effectively than single-scale models.
+\end{frame}
+
+\begin{frame}{Fully-Supervised Methods Glance}
+\centering
+\scriptsize
+\begin{tabular}{lccc}
+\hline
+Model       & Volleyball (VD) & Collective (CAD) & CAED \\
+\hline
+HDTM        & yes             & yes              & no   \\
+ARG         & yes             & yes              & no   \\
+GroupFormer & yes             & yes              & no   \\
+MLST-Former & yes             & yes              & yes  \\
+\hline
+\end{tabular}
+
+\begin{tabular}{l|p{4.25cm}|p{4.25cm}}
+\hline
+Dataset & Group activities (scene-level) & Individual actions (person-level) \\
+\hline
+Volleyball (VD) &
+right set, right spike, right pass, right winpoint, left set, left spike, left pass, left winpoint &
+waiting, setting, digging, falling, spiking, blocking, jumping, moving, standing \\
+\hline
+Collective (CAD) &
+crossing, waiting, queueing, walking, talking &
+NA, crossing, waiting, queueing, walking, talking \\
+\hline
+CAED &
+crossing, waiting, queueing, talking, dancing, jogging &
+same as CAD (individual-level labels) \\
+\hline
+\end{tabular}
+
+\begin{tabular}{lcccc}
+\hline
+Model       & VD group acc. & VD indiv. acc. & CAD group acc. & CAED group acc. \\
+\hline
+HDTM        & 51.1\%        & --             & 81.5\%         & --              \\
+ARG         & 92.5\%        & 83.0\%         & 91.0\%         & --              \\
+GroupFormer & 95.7\%        & 85.6\%         & 96.3\%         & --              \\
+MLST-Former & 94.5\%        & 84.5\%         & 96.8\%         & 95.9\%          \\
+\hline
+\end{tabular}
+\end{frame}
+
+
+%=========================================================
+\subsubsection{Weakly-supervised}
+
+\begin{frame}{Weakly-supervised Methods}
+Characteristics:
+\begin{itemize}
+    \item Use only video-level labels.
+    \item No bounding boxes required.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item LRMM (Local Relative Motion Module)
+    \item Social Adaptive Module (SAM)
+    \item Detector-free WSGAR
+    \item ZSTGroupCLIP
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{LRMM}
+LRMM (Local Relative Motion Module) models group activities by explicitly capturing the relative motion between individuals, rather than relying on bounding-box annotations or detailed actor labels. The method extracts local motion features for each person and then computes pairwise relative-motion descriptors that encode how individuals move with respect to each other. These relational motion cues are aggregated over time to form a group-level representation.
+\end{frame}
+
+
+\begin{frame}{SAM (Social Adaptive Module)}
+SAM learns to assign soft attention weights to individuals without any actor-level supervision. The module implicitly identifies which people are most relevant for the group activity by learning social importance scores. This attention mechanism improves performance when only video-level annotations are available.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.65\linewidth]{pic/screenshot004}
+% 	\caption{}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Detector-free WSGAR}
+This model removes the need for any person detection and instead uses 3D CNNs or spatio-temporal transformers to learn implicit representations of interactions. The network discovers actor groups and their relations directly from raw video, bypassing detector errors and annotation cost.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.75\linewidth]{pic/screenshot005}
+% 	\caption{}
+	\label{fig:screenshot005}
+\end{figure}
+\end{frame}
+
+\begin{frame}{ZSTGroupCLIP}
+ZSTGroupCLIP adapts CLIP’s vision–language alignment to GAR. It describes group activities using text prompts and compares them with video embeddings. Because it relies on cross-modal alignment rather than annotated GAR datasets, it performs zero-shot recognition for unseen activities.
+\end{frame}
+
+\begin{frame}{Weakly-supervised Methods Glance}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+
+% --------- Models vs. datasets ----------
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\hline
+Model        & Volleyball (VD) & NBA & Collective (CAD) \\
+\hline
+SAM          & yes & yes & no  \\
+DFWSGAR      & yes & yes & no  \\
+LRMM+GCM     & yes & yes & yes \\
+ZSTGroupCLIP & yes & yes & yes \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{1mm}
+
+% --------- Datasets and activities ----------
+\begin{table}[h]
+\centering
+\begin{tabular}{p{2.4cm} p{4.1cm} p{4.1cm}}
+\hline
+Dataset & Group activities (scene-level) & Individual actions / notes \\
+\hline
+Volleyball (VD) &
+right set, right spike, right pass, right winpoint,
+left set, left spike, left pass, left winpoint &
+9 individual volleyball actions exist, but weakly-supervised
+methods use only video-level team labels (no boxes). \\[1mm]
+
+NBA &
+basketball event types: 2-point and 3-point attempts
+(success or miss) and layups with offensive/defensive rebounds &
+only video-level event labels; no individual player
+annotations. \\[1mm]
+
+Collective (CAD) &
+crossing, walking, waiting, talking, queueing &
+in weakly-supervised GAR, only the clip-level majority
+group label is used (no explicit person labels). \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{1mm}
+
+% --------- Metrics ----------
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\hline
+Model      & VD MCA & VD merged MCA & NBA MCA & NBA MPCA \\
+\hline
+SAM (ResNet-18) & 86.3\% & 93.1\% & 54.3\% & 51.5\% \\
+DFWSGAR         & 90.5\% & 94.4\% & 75.8\% & 71.2\% \\
+LRMM+GCM        & 92.8\% & 95.6\% & 77.8\% & 73.2\% \\
+ZSTGroupCLIP    & --     & --     & --     & --     \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\subsubsection{Self-supervised}
+
+\begin{frame}{Self-supervised Methods}
+Characteristics:
+\begin{itemize}
+    \item No human labels.
+    \item Use contrastive or predictive pretext tasks.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item AAGCM (Skeleton SSL)
+    \item SPARTAN (SSL Transformer)
+    \item SoGAR (Social SSL)
+    \item GSTCo (Contrastive SSL)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{AAGCM}
+AAGCM (Adversarial Adaptive Graph Contrastive Model) learns skeleton-based GAR without labels by applying contrastive learning on graph-structured data. It perturbs nodes/edges adversarially and forces consistency in representation. This improves robustness to noise, occlusion, and viewpoint changes while capturing social interactions through the graph structure.
+\end{frame}
+
+\begin{frame}{SPARTAN}
+SPARTAN uses a transformer encoder trained with self-supervised objectives such as masked prediction, temporal ordering, and contrastive alignment. These tasks force the transformer to learn contextual and relational information from unlabeled video, enabling strong downstream GAR performance.
+\end{frame}
+
+\begin{frame}{SoGAR}
+SoGAR (Social Self-Supervised GAR) designs pretext tasks based on social consistency—e.g., predicting spatial formations or relative proximities. By exploiting social dynamics, it learns group-aware features without requiring manually annotated labels.
+\end{frame}
+
+\begin{frame}{GSTCo}
+GSTCo (Graph Spatio-Temporal Contrastive) trains on skeleton graphs using multi-level contrastive learning (node, person, and group). This enforces consistent representations across augmentations and time windows, enabling strong self-supervised GAR performance.
+\end{frame}
+
+\begin{frame}{Self-supervised Methods Glance 1}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\centering
+
+% 1) Datasets used by each self-supervised method
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\hline
+Model & Volleyball (VD) & Collective (CAD) & NBA & JRDB-PAR \\
+\hline
+AAGCM (skeleton SSL) & yes & yes & no  & no  \\
+SPARTAN (ViT SSL)    & yes & no  & yes & no  \\
+SoGAR (social SSL)   & yes & no  & yes & yes \\
+GSTCo (contrastive)  & yes & yes & no  & no  \\
+\hline
+\end{tabular}
+\end{table}
+
+% \vspace{0.7em}
+
+% 2) Group activities and individual / social labels
+\begin{table}[h]
+\centering
+\begin{tabular}{p{2.7cm}p{4.3cm}p{4.3cm}}
+\hline
+Dataset & Group activities (scene-level) & Individual / social labels and notes \\
+\hline
+Volleyball (VD) &
+8 volleyball group activities:
+right set, right spike, right pass, right winpoint,
+left set, left spike, left pass, left winpoint. &
+9 player actions such as waiting, setting, digging,
+falling, spiking, blocking, jumping, moving,
+standing; bounding boxes for each player. \\
+\hline
+Collective (CAD) &
+5 collective activities:
+crossing, walking, waiting, queueing, talking. &
+6 individual actions:
+NA, crossing, walking, waiting, queueing, talking;
+person boxes for each pedestrian. \\
+\hline
+JRDB-PAR &
+11 social group activities in panoramic robot videos
+(e.g.\ standing closely, chatting, walking together,
+sitting closely, group working). &
+27 individual actions (e.g.\ walking, talking) and
+7 global scene activities; dense bounding boxes for
+all people in each frame. \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}{Self-supervised Methods Glance 2}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\centering
+
+% 3) Evaluation metrics after self-supervised pre-training
+\begin{table}[h]
+\centering
+\scriptsize
+\begin{tabular}{p{1.2cm}p{2.2cm}p{2.2cm}p{2.5cm}p{2.7cm}}
+\hline
+Model      & VD MCA / MPCA      & CAD MCA / MPCA      & NBA MCA / MPCA      & JRDB-PAR (P\_g / R\_g / F\_g) \\
+\hline
+AAGCM      & 94.0\% / 94.4\%     & 97.1\% / 96.1\%     & --                  & -- \\
+SPARTAN    & 92.9\% / --         & --                  & 82.1\% / 72.8\%     & -- \\
+SoGAR      & --                  & --                  & 83.3\% / 73.5\%     & 49.3\% / 47.1\% / 48.7\% \\
+GSTCo      & --                  & 96.8\% / --         & --                  & -- \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\subsubsection{Semi-supervised \& Reinforcement Learning}
+
+\begin{frame}{Semi-supervised \& Reinforcement Learning}
+\begin{itemize}
+    \item Semi-supervised: use pseudo-labels.
+    \item RL: learn interaction reasoning policies.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item MLS-GAN (semi-supervised)
+    \item PRL (reinforcement learning)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MLS-GAN}
+MLS-GAN combines CNN features with a GAN structure. The generator predicts group activity using both labeled and unlabeled data, while the discriminator evaluates prediction credibility. The multi-level design captures both individual and scene-level context, improving GAR when labeled data is limited.
+\end{frame}
+
+\begin{frame}{PRL (Policy Reinforcement Learning)}
+PRL formulates GAR as a reinforcement learning problem where the model learns a policy to select key individuals and relations. The agent receives rewards for identifying informative interactions, gradually improving relational reasoning and group activity predictions.
+\end{frame}
+
+
+\begin{frame}{Semi-supervised \& Reinforcement Learning Glance}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\centering
+
+% -------- 1) Models vs. datasets --------
+\begin{tabular}{lccc}
+\hline
+Model   & Volleyball (VD) & Collective (CAD) & Other \\
+\hline
+MLS-GAN (semi-supervised) & yes & yes & -- \\
+PRL (reinforcement learning) & yes & yes & -- \\
+\hline
+\end{tabular}
+
+\vspace{0.7em}
+
+% -------- 2) Datasets, group activities, individual actions --------
+\begin{tabular}{p{2.7cm} p{4.3cm} p{4.3cm}}
+\hline
+Dataset & Group activities (scene-level) & Individual actions / notes \\
+\hline
+Volleyball (VD) &
+8 team activities:
+right set, right spike, right pass, right winpoint,
+left set, left spike, left pass, left winpoint. &
+9 player actions:
+waiting, setting, digging, falling, spiking,
+blocking, jumping, moving, standing. \\[1mm]
+\hline
+Collective (CAD) &
+5 collective activities:
+crossing, walking, waiting, talking, queueing. &
+6 individual actions:
+NA, crossing, walking, waiting, talking, queueing;
+group label is majority of individual actions. \\
+\hline
+\end{tabular}
+
+\vspace{0.7em}
+
+% -------- 3) Evaluation metrics (MCA / MPCA) --------
+\begin{tabular}{lcccc}
+\hline
+Model   & VD MCA & VD MPCA & CAD MCA & CAD MPCA \\
+\hline
+MLS-GAN & 93.0\% & --      & 91.7\% & --      \\
+PRL     & 91.4\% & 91.8\%  & --     & 93.8\% \\
+\hline
+\end{tabular}
+
+\end{frame}
+
+%=========================================================
+\subsection{Network Types}
+%=========================================================
+
+\begin{frame}{Network Types}
+\begin{itemize}
+    \item CNN / 3D CNN
+    \item RNN / LSTM
+    \item Graph Convolutional Networks (GCN)
+    \item Transformers
+\end{itemize}
+\end{frame}
+
+\subsubsection{CNN / 3D CNN}
+
+\begin{frame}{CNN / 3D CNN}
+Strengths:
+\begin{itemize}
+    \item Strong spatial feature extraction.
+    \item 3D CNNs capture short-term temporal info.
+\end{itemize}
+
+Example Models:
+\begin{itemize}
+    \item CRM
+    \item I3D variants
+\end{itemize}
+\end{frame}
+
+\begin{frame}{CRM}
+CRM (Contextual Relation Model) uses 3D CNNs to extract spatio-temporal features and a relation reasoning module to identify interactions among individuals. Local motion patterns and contextual cues are integrated to infer higher-level group behaviors.
+\end{frame}
+
+\subsubsection{RNN / LSTM}
+
+\begin{frame}{RNN / LSTM}
+Strengths:
+\begin{itemize}
+    \item Sequential temporal modeling.
+\end{itemize}
+
+Representative:
+\begin{itemize}
+    \item HDTM
+    \item SBGAR
+    \item CERN
+\end{itemize}
+\end{frame}
+
+\begin{frame}{SBGAR}
+SBGAR (Semantics-Based Group Activity Recognition) models group activities by building a semantic graph where individuals and contextual cues form nodes linked through meaningful relations such as cooperation or spatial alignment. A hierarchical reasoning module aggregates these semantic relations into a coherent group-level representation. By emphasizing relational semantics rather than only motion, SBGAR improves recognition of complex coordinated behaviors.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.75\linewidth]{pic/screenshot007}
+% 	\caption{}
+	\label{fig:screenshot007}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{CERN}
+CERN (Confidence-Energy Recurrent Network) integrates LSTMs with an energy-based model that enforces consistency across individual and group predictions. The energy function penalizes inconsistent outputs, resulting in more stable and robust group activity classification.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\linewidth]{pic/screenshot006}
+% 	\caption{}
+	\label{fig:screenshot008}
+\end{figure}
+\end{frame}
+
+\subsubsection{GCN-based}
+
+\begin{frame}{Graph Convolutional Networks (GCN)}
+Strengths:
+\begin{itemize}
+    \item Explicit relational reasoning.
+    \item Actor relation graphs.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item ARG
+    \item DIN
+    \item GAIM
+\end{itemize}
+\end{frame}
+
+\begin{frame}{DIN}
+DIN (Dynamic Inference Network) builds a time-varying interaction graph that adapts at each frame based on the appearance, motion, and spatial context of individuals. Instead of using a fixed relation structure, the model dynamically predicts which actor pairs should interact, enabling flexible reasoning over evolving group formations. This adaptive graph inference improves recognition of complex and rapidly changing group activities.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.75\linewidth]{pic/screenshot008}
+% 	\caption{}
+	\label{fig:screenshot008}
+\end{figure}
+\end{frame}
+
+\begin{frame}{GAIM}
+GAIM (Group Activity Interaction Model) uses hierarchical graphs to represent subgroup-level and global interactions. GCN layers capture multi-level dependencies, making it effective for scenes with structured formations such as team sports.
+\end{frame}
+
+\subsubsection{Transformer-based}
+
+\begin{frame}{Transformers}
+Strengths:
+\begin{itemize}
+    \item Long-range interactions.
+    \item Joint spatial–temporal attention.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item Actor-Transformer (AT)
+    \item GroupFormer
+    \item MLST-Former
+    \item KRGFormer
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Actor Transformer}
+Actor Transformer embeds each person as a token and applies self-attention across actors and time. This enables long-range relational modeling and key-actor identification, outperforming traditional sequence models.
+\end{frame}
+
+\begin{frame}{KRGFormer}
+KRGFormer (Key-Relation Guided Transformer) enhances the transformer by estimating important actor–actor relations and guiding attention toward them. This targeted relational focus improves accuracy in crowded scenes with many distractors.
+\end{frame}
+
+\begin{frame}{DynamicFormer}
+DynamicFormer predicts dynamic attention masks that change over time, allowing the model to adapt to shifting group formations. This helps recognize evolving activities in sports and irregular crowd behavior.
+\end{frame}
+
+\begin{frame}{Network-based Methods Glance 1}
+\small
+
+% ---------------- Table 1: datasets used by each model ----------------
+\begin{table}[h]
+\centering
+\scriptsize
+\begin{tabular}{lccc}
+\toprule
+Model & Volleyball (VD) & Collective (CAD) & NBA / other \\
+\midrule
+CRM  & yes & yes & -- \\
+SBGAR          & yes & yes & -- \\
+CERN) & yes & yes & -- \\
+DIN        & yes & yes & -- \\
+GAIM  & yes & yes & CollectiveSports \\
+Actor-Transformer               & yes & yes (re-eval.) & -- \\
+KRGFormer & yes & -- & NBA, VolleyTactic \\
+DynamicFormer                         & yes & yes & keypoint-only (VD, CAD) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ---------------- Table 2: datasets and actions ----------------
+\begin{table}[h]
+\centering
+\scriptsize
+\begin{tabularx}{\linewidth}{l
+  >{\raggedright\arraybackslash}p{0.40\linewidth}
+  >{\raggedright\arraybackslash}p{0.40\linewidth}}
+\toprule
+Dataset & Group activities (scene-level) & Individual / person-level actions or notes \\
+\midrule
+Volleyball (VD)
+& right set, right spike, right pass, right winpoint,
+  left set, left spike, left pass, left winpoint
+& waiting, setting, digging, falling, spiking,
+  blocking, jumping, moving, standing \\[1mm]
+
+Collective Activity (CAD)
+& crossing, walking, waiting, talking, queueing
+& NA, crossing, walking, waiting, talking
+  (individual action labels) \\[1mm]
+
+NBA
+& nine basketball events: 2-point and 3-point attempts
+  (made / missed) and layups with offensive / defensive
+  rebound variants
+& only group-activity labels in this setting
+  (no individual actions) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Network-based Methods Glance 2}
+\small
+
+% ---------------- Table 3: main evaluation metrics ----------------
+\begin{table}[h]
+\centering
+\scriptsize
+\begin{tabular}{p{2.5cm}ccp{5cm}}
+\toprule
+Model & VD MCA & VD MPCA & Comment \\
+\midrule
+SBGAR                        & 66.9 & 67.6 & early semantic context baseline \\
+CERN-2                       & 83.3 & 83.6 & confidence–energy recurrent model \\
+CRM                          & 92.1 & --   & convolutional relational machine \\
+Actor-Transformer       & 90.0 & 90.2 & transformer over actor tokens \\
+DIN \\(VGG-16 backbone)  & 93.6 & 93.8 & dynamic inference relations \\
+KRGFormer                    & 94.0 & 94.4 & key-role guided transformer \\
+DynamicFormer\\(keypoint-only)& 95.3 & --   & dynamic composition + interaction \\
+GAIM                         & --   & --   & uses VD/CAD; numeric values omitted here \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+%=========================================================
+\subsection{Modeling Mechanisms}
+%=========================================================
+
+\begin{frame}{Modeling Mechanisms}
+\begin{itemize}
+    \item Hierarchical temporal modeling
+    \item Interaction relationship modeling
+    \item Attention modeling
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hierarchical Temporal Modeling}
+Two-stage LSTM:
+\begin{itemize}
+    \item Individual-level LSTM
+    \item Group-level LSTM
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item HDTM
+    \item SBGAR
+    \item GLIL
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interaction Relationship Modeling}
+\begin{itemize}
+    \item Graph-based relational reasoning
+    \item Hierarchical relation networks
+    \item Hypergraphs
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item HRN
+    \item HiGCIN
+    \item Hypergraph GAR
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Attention Modeling}
+Three types:
+\begin{enumerate}
+    \item Key actor extraction
+    \item Multi-level attention
+    \item Self-attention
+\end{enumerate}
+
+Examples:
+\begin{itemize}
+    \item PCTDM
+    \item HAN-HCN
+    \item Actor-Transformer
+    \item DynamicFormer
+\end{itemize}
+\end{frame}
+
+%=========================================================
+\subsection{Input Types}
+%=========================================================
+
+\begin{frame}{Input Types}
+\begin{itemize}
+    \item Single-modality (RGB, Skeleton)
+    \item Multimodal Fusion
+    \item Multimodal Input (visual + non-visual)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{RGB-based Methods}
+RGB methods use appearance and motion cues from video frames. While they capture rich visual information, they can be sensitive to lighting, occlusion, and background clutter. Transformers and GCNs have improved relational reasoning in RGB-based GAR.
+
+\begin{itemize}
+    \item Most common.
+    \item Sensitive to lighting and occlusion.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item GroupFormer
+    \item ARG
+    \item MLST-Former
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Skeleton-based Methods}
+Skeleton-based models use pose keypoints, offering better privacy and robustness to appearance variation. Methods like POGARS, Composer, and AAGCM use GCNs or transformers on skeletal graphs to learn human–human interactions effectively.
+\begin{itemize}
+    \item Better privacy.
+    \item Strong structural representation.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item POGARS
+    \item Composer
+    \item AAGCM
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Multimodal Fusion}
+Multimodal fusion combines RGB, flow, pose, or other modalities. Early fusion merges features at input, while late fusion merges predictions. Hybrid approaches integrate interactions at multiple network stages. Techniques like MLST-Former and AT leverage multimodal cues effectively.
+
+\begin{itemize}
+    \item Early fusion: feature-level
+    \item Late fusion: score-level
+    \item Hybrid fusion
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item Multi-stream CNN
+    \item AT
+    \item MLST-Former
+\end{itemize}
+\end{frame}
+
+%=========================================================
+\section{Datasets}
+%=========================================================
+
+\begin{frame}{Surveillance Datasets}
+\begin{itemize}
+    \item CAD, CAED, NCAD
+    \item UCLA Courtyard
+    \item Nursing Home Dataset
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Sports Datasets}
+\begin{itemize}
+    \item Volleyball Dataset (VD)
+    \item NBA Dataset
+    \item NCAA Basketball
+    \item Soccer Dataset
+    \item HARD (Hockey)
+\end{itemize}
+\end{frame}
+
+%=========================================================
+\section{Evaluation}
+%=========================================================
+
+\begin{frame}{Evaluation Metrics}
+\begin{itemize}
+    \item Multi-class Classification Accuracy (MCA)
+    \item Mean Per-Class Accuracy (MPCA)
+    \item Confusion Matrix
+\end{itemize}
+\end{frame}
+
+%=========================================================
+\section{Future Directions}
+%=========================================================
+
+\begin{frame}{Future Research Directions}
+\begin{itemize}
+    \item End-to-end real-time GAR
+    \item Few-shot / zero-shot GAR
+    \item Larger standardized datasets
+    \item Robust low-frequency activity recognition
+    \item Multimodal GAR (text, audio, sensors)
+    \item Extensions: GAP, PAR, SGAR, EAR
+\end{itemize}
+\end{frame}
+
+%=========================================================
+\section{Conclusion}
+%=========================================================
+
+\begin{frame}{Conclusion}
+\begin{itemize}
+    \item GAR is complex and evolving.
+    \item Transformers and GCNs dominate SOTA.
+    \item Multimodal learning and SSL are promising.
+\end{itemize}
+\end{frame}
+
+%=========================================================
+\section{References}
+%=========================================================
+
+\begin{frame}[allowframebreaks]{References}
+
+[1] L. Shao, Z. Gao, M. Zhang, X. Chen, Y. He, and D.-Y. Yeung,
+"Deep learning-based group activity recognition in videos: A survey,"
+Information Fusion, 2024.
+
+[2] I. A. Papadopoulos et al.,
+"Group activity recognition using deep models,"
+IEEE Transactions on Pattern Analysis and Machine Intelligence.
+
+[3] Q. Li, Z. Han, and X. Wu,
+"GroupFormer: Group Activity Recognition with Temporal Transformers," CVPR.
+
+[4] X. Wang, H. Xu, and M. Chen,
+"Actor-Relation Graph for Group Activity Recognition," CVPR.
+
+[5] W. Wu et al.,
+"MLST-Former: Multi-Level Spatio-Temporal Transformer for Group Activity Recognition," AAAI.
+
+[6] L. Zhang et al.,
+"Detector-Free Weakly Supervised GAR," ICCV.
+
+[7] Y. Yan et al.,
+"SoGAR: Social Self-Supervised Group Activity Representation," ECCV.
+
+[8] G. Chen et al.,
+"GSTCo: Graph Spatio-Temporal Contrastive Learning for Group Detection," ICCV.
+
+\end{frame}
+
+\end{document}
