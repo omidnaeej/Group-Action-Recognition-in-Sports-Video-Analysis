@@ -1,0 +1,286 @@
+\documentclass[12pt]{article}
+
+% ----------------------------------------------------------
+% Packages
+% ----------------------------------------------------------
+\usepackage[a4paper,margin=1in,headsep=0.4in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+\usepackage{setspace}
+
+% ----------------------------------------------------------
+% Header & Footer
+% ----------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+
+% Right header only (name + course)
+\fancyhead[R]{
+	\small
+	Omid Naeej Nejad
+}
+\fancyhead[L]{
+	\small
+	\textbf{Bachelor Thesis} | Group Activity Recognition
+}
+\fancyfoot[C]{\thepage}
+
+\setlength{\headheight}{26pt}
+
+% ----------------------------------------------------------
+% Title Format
+% ----------------------------------------------------------
+\title{
+	\vspace{-3.2cm}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[height=3cm]{Logo.png}
+	\end{figure}
+	\vspace{-0.6cm}
+	\textbf{Bachelor Thesis}\\
+	\Large \emph{Omid Naeej Nejad} \\
+	\normalsize \emph{610301189}
+}
+\author{}
+\date{}
+
+% ----------------------------------------------------------
+% Tight Section Spacing
+% ----------------------------------------------------------
+\titlespacing*{\section}{0pt}{0.6em}{0.3em}
+\setlength{\parskip}{4pt}
+
+% ----------------------------------------------------------
+% Solution Box
+% ----------------------------------------------------------
+\newtcolorbox{solutionbox}{
+	breakable,
+	colback=gray!5,
+	colframe=black!60,
+	title=Solution,
+	fonttitle=\bfseries,
+	boxrule=0.5pt,
+	arc=2mm,
+	left=6pt,
+	right=6pt,
+	top=6pt,
+	bottom=6pt,
+	before skip=6pt,
+	after skip=6pt
+}
+
+% number subsubsections with Roman numerals: I, II, III, ...
+\setcounter{secnumdepth}{3}
+\renewcommand{\thesubsubsection}{\Roman{subsubsection}}
+
+% ----------------------------------------------------------
+% Document
+% ----------------------------------------------------------
+\begin{document}
+	
+	\maketitle
+	\vspace{-1cm}
+	
+	% ----------------------------------------------------------
+	% Section
+	% ----------------------------------------------------------
+	\section{Datasets Have Approaching, Splitting and Walking-Together Actions}
+	
+	This section summarizes the most suitable group activity recognition (GAR) datasets for the three target actions in this project: (1) converging walk, (2) diverging walk, and (3) walking together. The selected datasets contain social interaction labels such as approaching, splitting, meeting, and moving together, which directly correspond to the desired categories.
+	
+	\subsection{BEHAVE Interactions Dataset}
+	
+	The BEHAVE dataset is one of the most widely used resources for multi-person behavior classification. It provides detailed, ground-truthed annotations for pairwise and group interactions. Relevant classes include:
+	\begin{itemize}
+		\item Approach (maps to converging walk)
+		\item Meet (maps to converging walk)
+		\item WalkTogether (maps to walking together)
+		\item Split (maps to diverging walk)
+	\end{itemize}
+	
+	Other available actions include InGroup, Ignore, RunTogether, Fight, Chase, and Following. BEHAVE is a strong match because its labeled actions closely mirror the target categories of this project.
+	
+	\subsection{CAVIAR Dataset}
+	
+	The CAVIAR dataset contains surveillance scenarios with multiple social behaviors. Its annotations include person trajectories and interaction events. Relevant actions include:
+	\begin{itemize}
+		\item People meeting (converging walk)
+		\item Walking together (walking together)
+		\item Splitting up (diverging walk)
+	\end{itemize}
+	
+	CAVIAR has been frequently used for early social behavior and group-activity recognition research, making it suitable for baseline experiments.
+	
+	\subsection{New Collective Activity Dataset}
+	
+	The New Collective dataset focuses on crowd-level and small-group activities in outdoor scenes. Its group actions closely align with the target behaviors:
+	\begin{itemize}
+		\item Gathering (people converge into a group)
+		\item Dismissal (people disperse from a group)
+		\item Walking together (group motion)
+	\end{itemize}
+	
+	These labels naturally map to the project’s categories of converging, diverging, and walking-together motion patterns.
+	
+	\subsection{UCLA Courtyard Dataset}
+	
+	The UCLA Courtyard dataset contains group-level actions in a controlled courtyard environment. While it does not explicitly include converging or diverging labels, it includes:
+	\begin{itemize}
+		\item Walking-together (group locomotion)
+	\end{itemize}
+	
+	Other actions (standing in line, discussing in group, sitting together, guided tour) can serve as negative samples or auxiliary behaviors but do not directly represent convergence or divergence.
+	
+	\subsection{M3Act Synthetic Dataset}
+	
+	The M3Act dataset is a synthetic multi-view, multi-group activity dataset that allows controlled generation of group behaviors. Although it does not provide explicit converging or diverging labels, it can be used to generate and annotate the following:
+	\begin{itemize}
+		\item Converging walk (groups moving toward each other)
+		\item Diverging walk (groups splitting or separating)
+		\item Walking together (multiple synchronized trajectories)
+	\end{itemize}
+	
+	Because it is synthetic, M3Act is valuable for pretraining, augmentation, and generating large-scale labeled patterns before fine-tuning on real datasets like BEHAVE or CAVIAR.
+	
+	\subsection{Summary of Dataset–Action Mapping}
+
+	These datasets collectively provide strong coverage of the three required actions. BEHAVE and CAVIAR are the most directly aligned with the project's target behaviors and should be prioritized for model training and evaluation.
+	
+	\begin{table}[h]
+		\centering
+		\caption{Summary of datasets}
+		\setlength{\tabcolsep}{4pt}  % reduce horizontal padding
+		\renewcommand{\arraystretch}{1.1}
+		\resizebox{\linewidth}{!}{
+			\begin{tabular}{lcccc}
+				\hline
+				Dataset & \#Clips & \#Classes & Resolution & Notes \\
+				\hline
+				BEHAVE & $\sim$400 & 10 & 640×480 & Approach, Split, WalkTogether \\
+				CAVIAR & $\sim$52 & 7 & 384×288 & Meeting, Walking together, Splitting up \\
+				New Collective & $\sim$360 & 6 & 720×576 & Gathering, Dismissal, Walking together \\
+				UCLA Courtyard & 103 & 6 & 1920×1080 & Walking-together only \\
+				M3Act (synthetic) & 1000+ & Custom & Variable & User-generated converge/diverge \\
+				\hline
+			\end{tabular}
+		}
+	\end{table}
+
+
+	\section{Surveyed Literature on Group Activity Recognition}
+	
+	This section summarizes the major surveys on group activity recognition (GAR), focusing on their taxonomies, scope, datasets, and methodological categorizations. These surveys provide structured perspectives on how group behaviors such as converging, diverging, and walking-together actions are modeled, analyzed, and benchmarked.
+	
+	\subsection{List of Major Surveys}
+	
+	The following surveys were identified as the most comprehensive and relevant for GAR:
+	
+	\begin{itemize}
+		\item A Comprehensive Review of Group Activity Recognition in Videos (2021)
+		\item Group Activity Recognition in Computer Vision: A Comprehensive Review, Challenges, and Future Perspectives (2023)
+		\item Deep Learning-based Group Activity Recognition in Videos (2025)
+		\item A Comprehensive Study of Group Activity Recognition Methods and Datasets (multiple compilation-style works, 2019--2024)
+	\end{itemize}
+	
+	Each survey proposes a slightly different taxonomy, focusing on aspects such as feature-based vs. deep architectures, scene-level vs. actor-level modeling, graphical vs. attention-based models, and benchmark datasets.
+	
+	\subsection{Survey 1: ``A Comprehensive Review of Group Activity Recognition in Videos'' (2021)}
+	
+	This survey provides a classic, structured taxonomy that separates GAR methods into three main categories:
+	
+	\begin{itemize}
+		\item \textbf{Handcrafted Feature Methods}  
+		Trajectory-based descriptors, social-force models, relative motion patterns, spatial occupancy, and handcrafted group descriptors.
+		
+		\item \textbf{Deep Learning-based Methods}  
+		CNN + LSTM architectures, hierarchical LSTMs (person-level then group-level), spatiotemporal models, late fusion, and early fusion strategies.
+		
+		\item \textbf{Graph-based Methods}  
+		Actor–relation graphs, pairwise interaction graphs, message passing, and structural reasoning over human nodes.
+	\end{itemize}
+	
+	The survey contains an extensive dataset table covering BEHAVE, CAVIAR, Collective Activity, UCLA Courtyard, Volleyball, and sports datasets. It explicitly describes labels such as Approach, Split, WalkTogether, Meeting, Gathering, and Dismissal, which directly relate to the classes required in this project.
+	
+	\subsection{Survey 2: ``Group Activity Recognition in Computer Vision: A Comprehensive Review, Challenges, and Future Perspectives'' (2023)}
+	
+	This newer survey proposes a broader and more modern taxonomy. Its major contributions include:
+	
+	\begin{itemize}
+		\item \textbf{Scene-level vs. Group-level vs. Person-level Modeling}  
+		Categorizes methods based on whether the model focuses on global scene cues, group structure, or individual trajectories.
+		
+		\item \textbf{Context Reasoning Models}  
+		Emphasizes spatial context (layout, background), social context (inter-person distances), and temporal context (group formation or dispersion).
+		
+		\item \textbf{Transformer-based and Relation-aware Models}  
+		Includes self-attention models, structured attention, and multi-head relation reasoning.
+		
+		\item \textbf{Benchmark Comparisons Across 10+ Datasets}  
+		Provides a unified comparison of dataset properties, evaluation metrics, and model performance.
+	\end{itemize}
+	
+	This survey is particularly useful for modern architectures (Transformers, GNNs, attention) and for situating our problem of converging/diverging actions within structured “group formation/dissolution” dynamics.
+	
+	\subsection{Survey 3: ``Deep Learning-based Group Activity Recognition in Videos'' (2025)}
+	
+	This survey focuses exclusively on deep architectures and organizes methods according to the computational structure of the model:
+	
+	\begin{itemize}
+		\item \textbf{Hierarchical Architectures}  
+		Two-level LSTMs, multi-stage aggregation, and actor-to-group reasoning.
+		
+		\item \textbf{Graph Neural Networks for Group Reasoning}  
+		Graph convolution, graph attention, message passing with nodes as people and edges as interactions.
+		
+		\item \textbf{Transformer Models}  
+		Pure attention models for multi-person dynamics, group token aggregation, and relational transformers.
+		
+		\item \textbf{Weakly-supervised and Semi-supervised GAR}  
+		Methods that require only video-level labels (e.g., DFWSGAR), which is useful when detailed frame-level annotations are missing.
+	\end{itemize}
+	
+	The survey includes a detailed taxonomy of supervisory signals and compares models on the Volleyball and Collective Activity datasets.
+	
+	\subsection{Survey 4: ``Compilation of Group Activity Recognition Methods and Datasets'' (2019--2024)}
+	
+	This set of shorter surveys or compilations focuses on dataset properties. Their taxonomies generally categorize:
+	
+	\begin{itemize}
+		\item \textbf{Data-driven categories}: indoor vs. outdoor, crowd vs. small group.
+		\item \textbf{Annotation style}: bounding boxes, tracklets, interaction graphs.
+		\item \textbf{Action structure}: symmetric vs. asymmetric interactions (e.g., WalkTogether vs. Approach).
+		\item \textbf{Application domains}: surveillance, sports, social events.
+	\end{itemize}
+	
+	These are especially useful when comparing dataset suitability for converging/diverging actions.
+	
+	\subsection{Comparison of Survey Taxonomies}
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{c p{5cm} c p{4cm}}
+			\hline
+			Survey & Architecture Taxonomy & \small{Dataset Coverage} & Interaction Focus \\
+			\hline
+			Review (2021) & Features / Deep / Graph & Strong & Strong (Approach/Split) \\
+			Review (2023) & Scene / Group / Person / Context & Very Strong & Moderate \\
+			Review (2025) & Hierarchical / GNN / Transformer & Moderate & Weak \\
+			Dataset Compilations & None (data-focused) & Very Strong & Strong \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Summary}
+	
+	\begin{itemize}
+		\item The 2021 review is the best for understanding early models and datasets like BEHAVE and CAVIAR.
+		\item The 2023 review is the best if your thesis involves relational or attention-based modeling.
+		\item The 2025 survey is ideal for deep-learning-only architectures (GNNs, Transformers).
+		\item Dataset compilations are extremely useful for matching specific behaviors: Approach, Split, Meeting, WalkTogether.
+	\end{itemize}
+	
+	
+\end{document}
