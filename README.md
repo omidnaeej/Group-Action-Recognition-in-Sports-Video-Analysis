@@ -1,2 +1,2 @@
-# Group-Action-Recognition-in-Sports-Video-Analysis
+# Group-Activity-Recognition-for-Sports-Video-Analysis
 My Bachelor Thesis
