@@ -1,0 +1,15 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces خلاصه‌ای از رویکردهای بررسی شده تشخیص فعالیت‌های گروهی}}{14}{table.caption.10}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces نتایج کلی مدل CNN+RNN}}{31}{table.caption.26}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces عملکرد مدل CNN+RNN به‌ازای هر کلاس}}{31}{table.caption.27}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces نتایج کلی مدل CNN+LSTM}}{33}{table.caption.29}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces عملکرد مدل CNN+LSTM به‌ازای هر کلاس}}{33}{table.caption.30}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces نتایج کلی مدل CNN+Bi-LSTM}}{35}{table.caption.32}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces عملکرد مدل CNN+Bi-LSTM به‌ازای هر کلاس}}{35}{table.caption.33}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces نتایج کلی مدل \lr {TimeSformer}}}{37}{table.caption.35}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces عملکرد مدل \lr {TimeSformer} به‌ازای هر کلاس}}{37}{table.caption.36}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces تحلیل ساختاری و مقایسه‌ای معماری‌های تشخیص فعالیت گروهی}}{41}{table.caption.38}%

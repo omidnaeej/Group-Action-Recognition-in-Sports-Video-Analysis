@@ -1,0 +1,611 @@
+\documentclass[12pt]{report}
+
+%Packages-------------------------------------
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{pst-node}
+%\uspackage{auto-pst-pdf}
+\usepackage{tikz-cd} 
+%\usepackage{hyperref}
+
+%\usepackage{xtocnic}
+
+\usepackage{xepersian}
+
+\settextfont{XB Zar.TTF}
+
+%Layout---------------------------------------
+
+%\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+%Commands-------------------------------------
+
+
+%Theorems-------------------------------------
+\newtheorem{thm}{قضیه}[chapter]
+\newtheorem{cor}[thm]{نتیجه}
+\newtheorem{defn}[thm]{تعریف}
+\newtheorem{prop}[thm]{گزاره}
+\newtheorem{lmm}[thm]{لم}
+\newtheorem{conj}[thm]{حدس}
+\newtheorem{exm}[thm]{مثال}
+\newtheorem{rem}[thm]{تذکر}
+\newtheorem{note}[thm]{یادداشت}
+\newtheorem{alg}[thm]{الگوریتم}
+\newtheorem{remem}[thm]{یادآوری}
+\newtheorem{prf}[thm]{برهان}
+\newtheorem{ghr}[thm]{قرارداد}
+
+\makeatletter
+\newcommand*{\doublerightarrow}[2]{\mathrel{
+		\settowidth{\@tempdima}{$\scriptstyle#1$}
+		\settowidth{\@tempdimb}{$\scriptstyle#2$}
+		\ifdim\@tempdimb>\@tempdima \@tempdima=\@tempdimb\fi
+		\mathop{\vcenter{
+				\offinterlineskip\ialign{\hbox to\dimexpr\@tempdima+1em{##}\cr
+					\rightarrowfill\cr\noalign{\kern.5ex}
+					\rightarrowfill\cr}}}\limits^{\!#1}_{\!#2}}}
+\newcommand*{\triplerightarrow}[1]{\mathrel{
+		\settowidth{\@tempdima}{$\scriptstyle#1$}
+		\mathop{\vcenter{
+				\offinterlineskip\ialign{\hbox to\dimexpr\@tempdima+1em{##}\cr
+					\rightarrowfill\cr\noalign{\kern.5ex}
+					\rightarrowfill\cr\noalign{\kern.5ex}
+					\rightarrowfill\cr}}}\limits^{\!#1}}}
+\makeatother
+\begin{document}
+	
+	%Title page ---------------------------------------------
+	
+	\begin{figure}
+		\centering
+		\includegraphics[height=2.5cm]{UT-Logo.pdf}
+	\end{figure}
+	
+	\begin{center}
+		پردیس علوم
+		\\
+		دانشکده ریاضی، آمار و علوم کامپیوتر
+	\end{center}
+	
+	\begin{center}
+		%%%%%%%%%%%%%
+	\end{center}
+	
+	\begin{center}
+		\huge{عنوان پروژه}
+	\end{center}
+	
+	\begin{center}
+		%%%
+	\end{center}
+	
+	\begin{center}
+		نگارنده
+	\end{center}
+	\begin{center}
+		\textbf{
+			نام نگارنده
+		}
+	\end{center}
+	
+	\begin{center}
+		\begin{tabular}{rr}
+			استاد راهنما: عنوان و نام استاد
+			
+		\end{tabular}
+	\end{center}
+	
+	\vspace{3cm}
+	\begin{center}
+		پایان‌نامه برای دریافت درجه کارشناسی
+		\\
+		در رشته ریاضی محض/ریاضی کاربردی/آمار/علوم کامپیوتر
+	\end{center}
+	
+	\begin{center}
+		تاریخ
+	\end{center}
+	
+	\pagestyle{empty}
+	\pagenumbering{}
+	
+	\newpage
+	%\pagestyle{headings}
+	%\setcounter{page}{1}
+	%\pagenumbering{roman}
+	\pagestyle{plain}
+	\setcounter{page}{1}
+	\pagenumbering{harfi}
+	%Abstract page-------------------------------
+	\chapter*{}
+	\section*{چکیده}
+	چکیده پایان‌نامه باید شامل نتایج اصلی مورد مطالعه باشد. توجه نمایید که چکیده با پیشگفتار تفاوت دارد و جای طرح مبانی یا مفاهیم مقدماتی نیست. چکیده تنها باید شامل نتایج و کار اصلی انجام شده در پایان‌نامه باشد. طول چکیده معمولا بیشتر از یک یا دو پاراگراف نیست.
+	
+	%Dedication page-----------------------------
+	%\chapter*{تقدیم به}
+	%\section*{تقدیم به}
+	
+	%Acknowledgement page------------------------
+	\chapter*{سپاسگزاری}
+	\section*{سپاسگزاری}
+	
+	%copyright + declaration page
+	%\chapter*{اصالت اثر}
+	%\section*{اصالت اثر}
+	% هیچ قسمت از این پایان‌نامه، پیش از این در هیج موسسه تحصیلات عالی برای دریافت درجه تحصیلی استفاده نشده است. همچنین، هیچ قسمت از این پایان‌نامه برگردان فارسی تمامی یا قسمتی از یک اثر دیگر علمی (مانند مقاله، پایان‌نامه، و غیره) به زبانی دیگر نمی‌باشد. ارائه این پایان‌نامه توسط نگارنده به معاونت آموزشی (معاونت پژوهشی و تحصیلات تکمیلی برای ارشد و دکتری) به منزله تعهد نگارنده به اصالت متن و محتوای ارائه شده بر اساس یک کار پژوهشی در مدت تحصیل در دانشگاه تهران می باشد. در صورت اثبات خلاف این امر، مدرک تحصیلی اخذ شده توسط این پایان‌نامه از دانشگاه تهران، معتبر نمی باشد. 
+	%
+	%\chapter*{حق مالکیت معنوی}
+	%\section*{حق مالکیت معنوی}
+	%حق مالکیت معنوی این اثر متعلق به دانشگاه تهران می باشد. استفاده از مطالب این پایان‌نامه در فعالیت های تحقیقاتی با ذکر منبع بلامانع می‌باشد. در صورت استفاده تجاری، مانند چاپ این پایان‌نامه، هماهنگی لازم و اجازه کتبی از دانشگاه و نگارنده پایان‌نامه الزامی می‌باشد.
+	
+	%\listoffigures
+	
+	%-------------------------
+	%\pagestyle{plain}
+	%\setcounter{page}{1}
+	%\pagenumbering{harfi}
+	%-------------------------
+	
+	
+	\chapter*{پیشگفتار }
+	
+	پیشگفتار، فصلی از پایان‌نامه است که معمولاً شامل بخش یا زیربخش نیست. در این بخش، مقدمه‌ای به زبان ساده و عاری از فرمول‌بندی ریاضی، از مساله مورد مطالعه در پایان‌نامه ارائه می‌شود. نیز در پیشگفتار است که می‌توان خواننده را با تاریخچه‌ای مختصر از تلاش‌هایی که برای حل مساله مورد مطالعه در پایان‌نامه شده است آشنا نمود و نیز تلاش نمود تا خواننده اهمیت کار انجام شده در پایان‌نامه را دریابد. این قسمت، گرچه در نگاه نخست به ظاهر بسیار ساده می‌نماید، اما در حقیقت یکی از  مهمترین قسمت‌های پایان‌نامه است، زیر بازتاب دهنده دانسته‌ها و فهم دانشجو از کلیت مساله است. توصیه می‌کنیم که نوشتن این قسمت را به آخر موکول نمایید!
+	\\
+	یک نکته مهم: اگر پایان‌نامه یک پایان‌نامه کارشناسی یا کارشناسی‌ارشد باشد، که معمولاً بر اساس یک یا چند مقاله نوشته می‌شوند، آنگاه از دانشجو انتظار می‌رود که مراجع اصلی خود را در پیشگفتار معرفی نماید.
+	\\
+	معمولاً بخش آخر پیشگفتار به ارائه یک نمایه کلی از پایان‌نامه اختصاص می‌یابد و نگارنده به معرفی کوتاهی از فصل‌بندی و کار انجام شده در پایان‌نامه می‌پردازد.
+	
+	\tableofcontents
+	
+	\chapter{مفاهیم مقدماتی}
+	
+	%---------------------
+	\pagestyle{plain}
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+	%---------------------
+	
+	در این فصل به بیان مقدمات هندسه جبری می‌پردازیم.
+	\section{فضا های آفین}
+	\begin{defn}
+		فضای آفین $n$-بعدی روی میدان $k$ عبارت است از: 
+		\begin{equation*}
+			\begin{aligned}
+				A^n= A^n(\bar{K}) = \{P=(a_1,\dots, a_n)| a_i \in \bar{K}\}
+			\end{aligned}
+		\end{equation*}
+	\end{defn}
+	
+	\begin{defn}
+		مجموعه $K$-نقاط گویای $A^n$
+		\LTRfootnote[2]{\lr{K-rtional points}}
+		 عبارت است از:
+		\begin{equation*}
+			\begin{aligned}
+				A^n(K) = \{P=(a_1,\dots, a_n)| a_i \in K\}
+			\end{aligned}
+		\end{equation*}
+	\end{defn}
+	
+	\begin{defn}[مجموعه جبری]
+			فرض کنید 
+		$f \in \bar{K}[x_1,\dots, x_n]$
+			و 
+		$P\in A^n$،
+			در این صورت
+		$f(p)\in \bar{K}$
+			و تعریف می‌کنیم:
+		\begin{equation*}
+			\begin{aligned}
+				V_f:=\{P=\in A^n| f(P)=0\}
+			\end{aligned}
+		\end{equation*}
+			دقت کنید چون $\bar{K}$ بسته جبری است، اگر $f$ غیر ثابت باشد آنگاه 
+			$V_f\neq \emptyset$.
+			
+			به طریق مشابه برای 
+			$T \subset \bar{K}[x_1,\dots, x_n]$
+				می‌توان تعریف کرد:
+			\begin{equation*}
+				\begin{aligned}
+					V(T):=\{P=\in A^n| f(P)=0 \quad\forall a\in T\}
+				\end{aligned}
+			\end{equation*}
+				و حال می‌توان مجموعه جبری را تعریف کرد:
+				
+				یک مجموعه جبری، زیرمجموعه‌ای از $A^n$ است که به صورت 
+			$V(T)$
+				باشد.
+	\end{defn}
+	
+	\begin{prop}
+		فرض کنید
+			$T \subset \bar{K}[x_1,\dots, x_n]$
+			و قرار دهید
+			$I:=<T>$،
+			در این صورت:
+			$$V(I)=V(T)$$
+	\end{prop}
+	\newpage
+	
+	بنابراین به هر ایده‌آل 
+	$I\lhd \bar{K[X]}$
+	می‌توان زیرمجموعه‌ای از 
+	 $A^n$
+	نسبت داد:
+	\begin{equation*}
+		\begin{aligned}
+			V(I):=\{P=\in A^n| f(P)=0 \quad \forall f\in I\}
+		\end{aligned}
+	\end{equation*}
+	حال نشان می‌دهیم که به هر مجموعه جبری نیز می توان یک ایده‌آل حلقه 
+	$\bar{K}[X]$ 
+	نسبت داد.
+	
+	فرض کنید $V$ یک مجموعه جبری باشد. تعریف می‌کنیم:
+	\begin{equation*}
+		\begin{aligned}
+			I(V):=\{f\in \bar{K}[X]| f(P)=0 \quad \forall P\in V\}
+		\end{aligned}
+	\end{equation*}
+	توجه کنید که چون 
+	$0\in I(V)$
+	بنابراین 
+	$I(V)\neq \emptyset$.
+	\begin{prop}
+		\begin{itemize}
+			\item 
+			$I(V) \in \bar{K}[X]$
+			\item 
+			$I(V)$
+			ایده‌آل رادیکال است.
+		\end{itemize}
+		\begin{remem}
+			فرض کنید $R$ یک حلقه و $I$ ایده آل آن باشد. در اینصورت رادیکال ایده آل $I$ را با 
+			$\sqrt{I}$
+			نمایش می دهیم و برابر است با:
+			\begin{equation*}
+				\begin{aligned}
+					\sqrt{I}=\{a\in I |\exists n\in \mathbb{N} \quad s.t. \quad a^n\in I\}
+				\end{aligned}
+			\end{equation*} 
+			ایده آل $J$ از حلقه $R$ را ایده آل رادیکال گوییم هرگاه:
+			$$\sqrt{J}=J$$
+		\end{remem}
+	\end{prop}
+	\begin{defn}
+		گوییم یک مجموعه جبری $V$ "روی $K$ تعریف شده است" اگر ایده آل 
+		$I(V)\lhd \bar{K}[X]$
+		مجموعه مولدی از اعضای 
+		$K[X]$
+		داشته باشد و در اینصورت آن را با 
+		$V/K$
+		نمایش می دهیم.
+	\end{defn}
+	
+	
+	
+	\section{عنوان بخش}
+	
+	\subsection{عنوان زیر-بخش}
+	
+	\section{عنوان بخش}
+	
+	\chapter{خم های ابر بیضوی}
+	\section{صفحه تصویری وزن دار}
+	در این بخش قصد داریم به تعریف یک فضای محیطی 
+	\LTRfootnote[3]{\lr{ambient space}}
+	مناسب برای خم های ابر بیضوی بپردازیم.
+	\begin{defn}
+		$g\in \mathbb{Z}_{\ge 0}$ 
+		را دلخواه در نظر بگیرید. صفحه تصویری وزن دار 
+		\LTRfootnote[4]{\lr{Weighted Projective Space}}	
+		$\mathbb{P}^2_g = \mathbb{P}^2_{(1,g+1,1)}$
+		یک شی هندسی است که نقاط آن عبارتند از:
+		\begin{equation*}
+			\begin{aligned}
+				\frac{(a,b,c)\in \bar{K}^3-{(0,0,0)}}{\sim} \quad s.t. \quad (a,b,c)\sim (a^\prime,b^\prime,c^\prime) \Leftrightarrow (\exists \lambda \in K^* \quad s.t. \quad (a^\prime,b^\prime,c^\prime) = (\lambda a,\lambda^{g+1}b,\lambda c))
+			\end{aligned}
+		\end{equation*}
+		نقطه متناظر
+		$(a,b,c)$
+		را در 
+		$\mathbb{P}^2_g$
+		با
+		$(a:b:c)$
+		نمایش می دهیم.
+		
+	\end{defn}
+	\chapter{چندگونا های جابجایی}
+	\LTRfootnote[4]{\lr{Abelian Varieteis}}	
+	\begin{defn}
+		یک چند گونای گروهی
+		\LTRfootnote[4]{\lr{Group Variety}}	
+		روی میدان 
+		$K$
+		یک واریته جبری 
+		$V$
+		روی 
+		$K$
+		با نگاشت‌های منظم 
+		\begin{equation*}
+			\begin{aligned}
+				&m: V\times_{K} V \rightarrow V\\
+				&inv: V\rightarrow V
+			\end{aligned}
+		\end{equation*}
+		و یک عضو
+		$e\in V(K)$
+		است؛ به گونه ای که ساختار تعریف شده روی
+		$V(\overline{K})$
+		توسط نگاشت های
+		$m$ و $inv$،
+		گروه بوده و عضو همانی(خنثی) این گروه 
+		$e$
+		می باشد.
+	\end{defn}
+	
+	جنین چهار تایی
+	$(V,m,inv,e)$
+	در کتگوری چندگونا های روی 
+	$K$
+	یک گروه است. بدین معنی که: 
+	\begin{itemize}
+		\item 
+		نگاشت های زیر هر دو نگاشت همانی بوده و لذا 
+		$e$
+		عضو خنثی گروه است.
+		\begin{equation*}
+			\begin{aligned}
+				G\xrightarrow{(id,e)} G\times_K G \xrightarrow{m} G \qquad G\xrightarrow{(e,id)} G\times_K G \xrightarrow{m} G
+			\end{aligned}
+		\end{equation*}
+		\item  
+		نگاشت های
+		\begin{equation*}
+			\begin{aligned}
+				G\xrightarrow{\triangle} G\times_k G\doublerightarrow{id\times inv}{inv \times id} G\times_k G\xrightarrow{m} G
+			\end{aligned}
+		\end{equation*}
+		هر دو برابر با ترکیب 
+		\begin{equation*}
+			\begin{aligned}
+				G\rightarrow Spec(K)\rightarrow G
+			\end{aligned}
+		\end{equation*}
+		هستند و بنابراین نگاشت
+		$inv$
+		هر عضو را به وارون آن می برد.
+		\item 
+		نمودار زیر جابجابی بوده و لذا خاصیت شرکت پذیری هم برقرار است.
+			
+		
+		
+		\[ \begin{tikzcd}
+			G\times_{K}G\times_{K} G \arrow{r}{1\times m} \arrow[swap]{d}{m\times 1} & G\times_{K} G \arrow{d}{m} \\%
+			G\times_{K} G \arrow{r}{m}& G
+		\end{tikzcd}
+		\]
+	\end{itemize}
+	 
+	 \begin{defn}
+	 	فرض کنید
+	 	$V$
+	 	یک چندگونای گروهی روی 
+	 	$K$
+	 	باشد. برای یک نقطه 
+	 	$a\in V(K)$
+	 	انتقال راست توسط $a$ را با 
+	 	$t_a:V\rightarrow V$
+	 	نمایش می دهیم و برابر با ترکیب زیر تعریف می کنیم:
+	 	\begin{equation*}
+	 		\begin{aligned}
+	 			V &\rightarrow &V\times V &\rightarrow &V\\
+	 			x &\mapsto &(x,a) &\mapsto &xa
+	 		\end{aligned}
+	 	\end{equation*}
+	 \end{defn}
+	 \begin{lmm}
+	 	$t_a:V\rightarrow V$
+	 	یکریختی بوده و وارون آن 
+	 	$t_{inv(a)}$
+	 	است.
+	 \end{lmm}
+	 \begin{prop}
+	 	یک چندگونای گروهی هموار است. 
+	 \end{prop}
+	 پیش از اثبات گزاره به بیان یک قضیه می پردازیم:
+	 \begin{thm}
+	 	مجموعه نقاط ناهموار یک چندگونا باز و چگال است.
+	 \end{thm}
+	 \begin{prf}
+	 	فرض کنید 
+	 	$U$
+	 	مجموعه نقاط ناهمواری 
+	 	$V$
+	 	باشد که بنا بر قضیه قبل می دانیم باز و چگال است. اگر 
+	 	$U=\emptyset$
+	 	که حکم برقرار است؛ بنابراین فرض کنید
+	 	$U\neq\emptyset$
+	 	و
+	 	$b\in U$
+	 	وجود داشته باشد.
+	 	
+	 	برای هر 
+	 	$a\in V$
+	 	تعریف کنید
+	 	$ U_a=\{xa|x\in U\}$. 
+	 	در این صورت 
+	 	$V=\bigcup U_a$
+	 	زیرا: 
+	 	
+	 	شمول
+	 	$\bigcup U_a\subset V$
+	 	که واضح است؛ برای طرف عکس توجه کنید که برای هر 
+	 	$x\in V$
+	 	داریم:
+	 	$$x = ex = bb^{-1}x \in U_{b^{-1}x} \Rightarrow x\in U_{b_{-1}x}$$
+	 	بنابراین 
+	 	$V\subset \bigcup U_a$
+	 	و لذا تساوی مذکور ثابت می شود.
+	 	
+	 	بنا بر تعریف فقط یک مولفه تحویل ناپذیر از یک چندگونا می تواند شامل 
+	 \end{prf}
+	 
+	 یک چندگونای گروهی همبند، همبند هندسی
+	 \LTRfootnote[5]{Geometrically Connected}
+	 است؛ یعنی با توسیع ضرایب اسکالر به بستار جبری، همچنان همبند باقی می ماند. برای مشاهده این گزاره باید نشان دهیم 
+	 $K$
+	 در 
+	 $K(V)$
+	 جبری-بسته است.
+	 \begin{defn}
+	 	تعریف کامل بودن
+	 \end{defn}
+	 \begin{defn}
+	 	یک چندگونای گروهی همبند کامل را یک چندگونای آبلی گوییم.
+	 \end{defn}
+	 
+	 هدف ما این است که نشان دهیم چندگوناهای آبلی تصویری و جابجایی هستند. 
+	 \begin{ghr}
+	 	زین پس عمل گروه این چندگوناها را با جمع(+) نمایش خواهیم داد.
+	 	بنابراین نگاشت انتقال 
+	 	$t_a$
+	 	را به صورت 
+	 	$x\mapsto x+a$ 
+	 	و عضو همانی 
+	 	$e$
+	 	را با 0 نمایش خواهیم داد.
+	 \end{ghr}
+	  
+	  \begin{thm}
+	  	\textbf{\large قضیه صلبی}
+	  	\LTRfootnote[6]{Rigidity Theorem}
+	  	
+	  	فرض کنید 
+	  	$V$ و $W$ و $U$
+	  	چندگونا های تصویری باشند به گونه ای که
+	  	$V\times W$
+	  	تحویل ناپذیر هندسی
+	  	\LTRfootnote[7]{Geometrically Irreducible}
+	  	و 
+	  	$V$
+	  	کامل باشد. یک نگاشت منظم 
+	  	$\alpha:V\times W \rightarrow U$
+	  	را در نظر بگیرید. اگر نقاط 
+	  	$u_0\in U(K)$، $v_0\in V(K)$ و $w_0\in W(K)$
+	  	وجود داشته باشند به طوری که:
+	  	$$\alpha(V\times \{w_0\}) = \{u_0\} = \alpha(\{v_0\}\times W)$$
+	  	آنگاه:
+	  	$$\alpha(V\times W)=\{u_0\}$$
+	  	به عبارت دیگر اگر دو محور مختصات به یک نقطه واحد تصویر شوند، این کل فضا را وادار می کند که به همان نقطه تصویر شود و این یکی از نتایج شگفت انگیز قلت تعداد نگاشت های بین چندگوناهای تصویری است.
+	  \end{thm}
+	  \begin{cor}
+	  	هر نگاشت منظم 
+	  	$\alpha:A\rightarrow B$
+	  	از چندگوناهای آبلی ترکیب یک همریختی با یک انتقال است.
+	  \end{cor}
+	  \begin{rem}
+	  	نتیجه قبل نشان می دهد که ساختار گروهی روی چندگوناهای آبلی با انتخاب عنصر صفر به طور یکتا تعیین می شود.
+	  \end{rem}
+	  \begin{cor}
+	  	عمل گروه یک چندگونای آبلی، جابجایی است. 
+	  \end{cor}
+	  \begin{cor}
+	  	فرض کنید 
+	  	$V$ و $W$
+	  	چندگوناهای کاملی روی 
+	  	$K$
+	  	باشند و
+	  	$v_0$ و $w_0$
+	  	به ترتیب نقط $K$-گویایی از آنها باشند. همچنین فرض کنید 
+	  	\begin{equation*}
+	  		\begin{aligned}
+	  			&p:V\times W \rightarrow V\\
+	  			&q:V\times W \rightarrow W
+	  		\end{aligned}	  		
+	  	\end{equation*}
+	  	به ترتیب نگاشت های تصویر روی مولفه اول و دوم باشند.
+	  	
+	  	فرض کنید $A$ یک چندگونای آبلی باشد. آنگاه مورفیسم 
+	  	$h:V\times W\rightarrow A$
+	  	را که 
+	  	$h(v_0,w_0)=0$
+	  	می توان به طور یکتا به صورت 
+	  	$h = f \circ p + g\circ q$
+	  	نوشت که 
+	  	$ f:V\rightarrow A$ و $g:W\rightarrow A$
+	  	مورفیسم هایی هستند که:
+	  	$f(v_0) = g(w_0) = 0$
+	  \end{cor}
+	\chapter{عنوان فصل}
+	
+	\chapter{نتیجه گیری}
+	
+	\chapter*{واژه‌نامه فارسی به انگلیسی}
+	\chapter*{ واژه‌نامه انگلیسی به فارسی}
+	
+	\begin{thebibliography}{MM}
+		\bibitem{one}
+	\end{thebibliography}
+	
+	\begin{latin}
+		\begin{abstract}
+			Abstract goes here...
+		\end{abstract}
+		\newpage
+		\thispagestyle{empty}
+		%Title page ---------------------------------------------
+		\begin{figure}
+			\centering
+			\includegraphics[height=2.5cm]{UT-Logo.pdf}
+		\end{figure}
+		\begin{center}
+			
+			College of Science\\
+			School of Mathematics, Statistics, and Computer Science
+		\end{center}
+		
+		\begin{center}
+			%%%%%%%%%%%%%
+		\end{center}
+		
+		\begin{center}
+			\huge{Title of the Project}
+		\end{center}
+		
+		\begin{center}
+			%%%
+		\end{center}
+		
+		\begin{center}
+			\textbf{
+				Author name
+			}
+		\end{center}
+		
+		\begin{center}
+			Supervisor:
+		\end{center}
+		
+		\vspace{3cm}
+		\begin{center}
+			A thesis submitted in partial fulfillment of the requirements for\\
+			the degree of B.Sc. in Pure Mathematics/ Applied Mathematics/ Statistics/ Computer Science
+		\end{center}
+		
+		\begin{center}
+			yyyy
+		\end{center}
+		
+		%\pagestyle{empty}
+		%\pagenumbering{}
+		
+	\end{latin}
+	
+\end{document}

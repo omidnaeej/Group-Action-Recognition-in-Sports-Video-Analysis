@@ -1,0 +1,61 @@
+\contentsline {chapter}{\numberline {1}مقدمه}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}زمینه و پیشینه مسئله}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}کاربردها}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}تحلیل ویدیوهای ورزشی}{2}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}نظارت و امنیت}{2}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}حمل‌ونقل هوشمند}{2}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}رباتیک و تعامل انسان-ماشین}{3}{subsection.1.2.4}%
+\contentsline {subsection}{\numberline {1.2.5}تحلیل رفتار اجتماعی و سلامت}{3}{subsection.1.2.5}%
+\contentsline {section}{\numberline {1.3}تعریف مسئله}{3}{section.1.3}%
+\contentsline {section}{\numberline {1.4}ابعاد و چالش‌ها}{4}{section.1.4}%
+\contentsline {section}{\numberline {1.5}اهمیت مسئله}{4}{section.1.5}%
+\contentsline {section}{\numberline {1.6}سهم این پژوهش}{5}{section.1.6}%
+\contentsline {section}{\numberline {1.7}ساختار و نقشه راه}{5}{section.1.7}%
+\contentsline {chapter}{\numberline {2}مروری بر روش‌های پیشین}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}مقدمه}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}تکامل تشخیص فعالیت}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}روش‌های سنتی (پیش از یادگیری عمیق)}{7}{section.2.3}%
+\contentsline {section}{\numberline {2.4}یادگیری عمیق برای تشخیص فعالیت گروهی}{8}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}مدل‌های CNN-RNN و مدل‌های زمانی سلسله‌مراتبی}{8}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}مدل‌های تعاملی و مبتنی بر روابط}{9}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}مدل‌های مبتنی بر ترنسفورمر}{9}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}روش‌های مبتنی بر ژست}{10}{subsection.2.4.4}%
+\contentsline {section}{\numberline {2.5}کاربردها در تحلیل ویدیوهای ورزشی}{10}{section.2.5}%
+\contentsline {section}{\numberline {2.6}مجموعه‌داده‌ها و بنچمارک‌ها}{11}{section.2.6}%
+\contentsline {section}{\numberline {2.7}چالش‌ها و شکاف‌های پژوهشی}{12}{section.2.7}%
+\contentsline {section}{\numberline {2.8}چشم‌اندازهای آینده}{12}{section.2.8}%
+\contentsline {section}{\numberline {2.9}جمع‌بندی}{13}{section.2.9}%
+\contentsline {chapter}{\numberline {3}روش‌شناسی}{15}{chapter.3}%
+\contentsline {section}{\numberline {3.1}توصیف مجموعه‌داده و چالش‌های مرتبط}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.2}مدل‌های مورد بررسی}{19}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}نوع یک: مدل‌های ترکیبی کانولوشنی--توالی‌محور}{19}{subsection.3.2.1}%
+\contentsline {subsubsection}{مدل 1: رمزگذار کانولوشنی + شبکه عصبی بازگشتی}{19}{section*.14}%
+\contentsline {subsubsection}{مدل 2: رمزگذار کانولوشنی + شبکه \lr {LSTM}}{19}{section*.15}%
+\contentsline {subsubsection}{مدل 3: رمزگذار کانولوشنی + شبکه \lr {LSTM} دوطرفه}{20}{section*.16}%
+\contentsline {subsection}{\numberline {3.2.2}نوع دو: مدل مبتنی بر ترنسفورمر فضایی-زمانی}{20}{subsection.3.2.2}%
+\contentsline {subsubsection}{مراحل آماده‌سازی داده‌ها}{21}{section*.18}%
+\contentsline {subsubsection}{معماری مدل}{21}{section*.19}%
+\contentsline {subsubsection}{راهبرد آموزش مدل}{22}{section*.20}%
+\contentsline {subsubsection}{فرآیند کلی اجرای مدل}{22}{section*.21}%
+\contentsline {subsubsection}{مزایا و محدودیت‌های مدل}{23}{section*.23}%
+\contentsline {section}{\numberline {3.3}صورت‌بندی مسئله}{24}{section.3.3}%
+\contentsline {chapter}{\numberline {4}ارزیابی و تحلیل نتایج}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}تحلیل آماری مجموعه‌داده‌}{25}{section.4.1}%
+\contentsline {section}{\numberline {4.2}معیارهای ارزیابی}{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}دقت کلی}{28}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}دقت به‌ازای هر کلاس}{28}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}صحت}{28}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}بازخوانی}{29}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}میانگین F1 ماکرو}{29}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}میانگین F1 وزنی}{30}{subsection.4.2.6}%
+\contentsline {section}{\numberline {4.3}مقایسه عملکرد مدل‌ها}{31}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}مدل 1: رمزگذار کانولوشنی + شبکه عصبی بازگشتی}{31}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}مدل 2: رمزگذار کانولوشنی + LSTM}{33}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}مدل 3: رمزگذار کانولوشنی + Bi-LSTM}{35}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}مدل 4: مدل مبتنی بر ترنسفورمر فضایی-زمانی}{37}{subsection.4.3.4}%
+\contentsline {chapter}{\numberline {5}نتیجه‌گیری و چشم‌انداز آینده}{40}{chapter.5}%
+\contentsline {section}{\numberline {5.1}نتیجه‌گیری}{40}{section.5.1}%
+\contentsline {section}{\numberline {5.2}کارهای آینده}{43}{section.5.2}%
+\contentsline {chapter}{واژه‌نامه فارسی به انگلیسی}{45}{chapter*.39}%
+\contentsline {chapter}{واژه‌نامه انگلیسی به فارسی}{49}{chapter*.40}%
+\contentsline {chapter}{مراجع}{53}{section*.41}%
