@@ -26,7 +26,7 @@ In team sports, understanding the collective behavior of players is crucial for 
 
 The full documentation of the thesis, including theoretical background, methodology, and detailed results, can be found in the directory.
 
-- 📄 **[Bachelor Thesis Report (PDF)](./Thesis_Report.pdf)**
+- 📄 **[Bachelor Thesis (PDF)](./Bachelor_Thesis.pdf)**
 <!-- - 📊 **[Presentation Slides (PDF)](./docs/Thesis_Presentation.pdf)** *(Update link to your actual file)* -->
 
 ---
