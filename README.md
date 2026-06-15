@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 [![Thesis](https://img.shields.io/badge/Docs-Bachelor_Thesis-blueviolet)](#-thesis-documentation)
 
-> **Author:** Omid Naeej ([@omidnaeej](https://github.com/omidnaeej))  
+> **Author:** Omid Naeej Nejad ([@omidnaeej](https://github.com/omidnaeej))  
 > **Type:** Bachelor's Thesis Project  
 > **Domain:** Computer Vision, Deep Learning, Sports Analytics 
 
